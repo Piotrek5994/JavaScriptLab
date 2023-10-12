@@ -1,45 +1,66 @@
-const a = document.querySelector('#liczba1');
-const b = document.querySelector('#liczba2');
-const c = document.querySelector('#liczba3');
-const d = document.querySelector('#liczba4');
-const btnPrzelicz = document.querySelector('#przelicz');
-const wynikPojemnika = document.querySelector('#wynik');
+// Get elements from the DOM
+const addFieldButton = document.getElementById("add-field");
+const removeFieldButton = document.getElementById("remove-field");
+const fieldsContainer = document.getElementById("fields-container");
+const sumResult = document.getElementById("sum");
+const averageResult = document.getElementById("average");
+const minResult = document.getElementById("min");
+const maxResult = document.getElementById("max");
 
-const sum = 0;
-const avg = 0;
-const min = 0;
-const max = 0;
-btnPrzelicz.addEventListener('click',()=>{
-    const sum = 
-    parseInt(a.value) + 
-    parseInt(b.value) + 
-    parseInt(c.value) + 
-    parseInt(d.value);
+// Add initial input fields
+addInputField();
 
-    console.log(sum);
-    
-    const avg = ((
-        parseInt(a.value) + 
-        parseInt(b.value) + 
-        parseInt(c.value) + 
-        parseInt(d.value) )/4);
+// Function to calculate statistics
+function calculateStatistics() {
+  const inputFields = document.querySelectorAll(".input-field");
+  const values = [];
 
-        console.log(avg);
-        
-        
-        
-        //Math.min(), Math.max()
-        const min = Math.min(a.value,b.value,c.value,d.value);
+  inputFields.forEach((field) => {
+    if (field.value !== "") {
+      values.push(parseFloat(field.value));
+    }
+  });
 
-        console.log(min);
-        
-        const max = Math.max(a.value,b.value,c.value,d.value);
+  if (values.length > 0) {
+    const sum = values.reduce((acc, val) => acc + val, 0);
+    const average = sum / values.length;
+    const min = Math.min(...values);
+    const max = Math.max(...values);
 
-        console.log(max);
-        
-        wynikPojemnika.innerHTML =
-        `Suma: ${sum} ,
-        Średnia: ${avg},
-        Minimum: ${min}, 
-        Maximum: ${max}`; 
-    })
+    sumResult.textContent = sum;
+    averageResult.textContent = average.toFixed(2);
+    minResult.textContent = min;
+    maxResult.textContent = max;
+  } else {
+    sumResult.textContent = 0;
+    averageResult.textContent = 0;
+    minResult.textContent = 0;
+    maxResult.textContent = 0;
+  }
+}
+
+// Event listener to add a new input field
+addFieldButton.addEventListener("click", addInputField);
+
+// Event listener to update statistics when input values change
+fieldsContainer.addEventListener("input", calculateStatistics);
+
+// Event listener to remove a new input field
+removeFieldButton.addEventListener("click", removeInputField);
+
+// Function to add a new input field
+function addInputField() {
+  const inputField = document.createElement("input");
+  inputField.type = "number";
+  inputField.className = "input-field";
+  fieldsContainer.appendChild(inputField);
+}
+
+// Function to remove a new input field, but only if it's empty and there is at least one input field
+function removeInputField() {
+  const inputFields = document.querySelectorAll(".input-field");
+  const lastInputField = inputFields[inputFields.length - 1];
+  if (inputFields.length > 0 && lastInputField.value === "") {
+    fieldsContainer.removeChild(lastInputField);
+  }
+}
