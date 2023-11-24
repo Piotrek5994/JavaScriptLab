@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NotePocket</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <span><h1>Notatki</h1></span>
+        <button class="add-note">+ Dodaj notatkę</button>
+      </div>
+      <div class="note-search">
+        <input type="text" placeholder="Szukaj po tagu" />
+      </div>
+      <div class="notes-list"></div>
+
+      <div class="form hidden">
+        <form>
+          <div class="header"><h1>Nowa notatka</h1></div>
+        <div class="content">
+          <div class="row">
+            <label>Tytuł notatki</label>
+            <input type="text" name="title" placeholder="Tytuł notatki" />
+          </div>
+          <div class="row">
+            <label>Treść notatki</label>
+            <textarea></textarea>
+          </div>
+          <div class="row">
+            <label>Tagi (po spacji)</label>
+            <input type="text" name="tags" placeholder="Podaj tagi po spacji" />
+          </div>
+          <div class="row">
+            Wybierz kolor: <input type="color" value="#ffffff" />
+          </div>
+          <div class="row">
+            <button id="submit" class="add-note">Dodaj notatkę</button>
+          </div>
+        </div>
+        </form>
+      </div>
+
+      <div class="edit-form hidden">
+        <form>
+          <div class="header"><h1>Edycja notatki</h1></div>
+          <div class="content">
+            <div class="row">
+              <label>Tytuł notatki</label>
+              <input type="text" name="title" placeholder="Tytuł notatki" />
+            </div>
+            <div class="row">
+              <label>Treść notatki</label>
+              <textarea></textarea>
+            </div>
+            <div class="row">
+              <label>Tagi (po spacji)</label>
+              <input type="text" name="tags" placeholder="Podaj tagi po spacji" />
+            </div>
+            <div class="row">
+              Wybierz kolor: <input type="color" value="#ffffff" />
+            </div>
+            <div class="row">
+              <button class="edit-note">Edytuj notatkę</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="edit-overlay hidden"></div>
+    <div class="overlay hidden"></div>
+
+    <script src="js/note.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
