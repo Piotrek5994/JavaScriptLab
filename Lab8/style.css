@@ -1,0 +1,27 @@
+*{
+    box-sizing: border-box;
+    margin:  0;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.options{
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    margin: 0.5rem;
+}
+.options div{
+    margin: 5px;
+}
+
+#canvas{
+    background-color: white;
+    overflow: hidden;
+    border: 1px solid black;
+}
