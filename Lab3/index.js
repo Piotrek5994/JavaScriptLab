@@ -22,6 +22,7 @@ function playSound(sound) {
   if (sound) {
     sound.currentTime = 0;
     sound.play();
+    console.log("playSound",sound);
   }
 }
 
