@@ -3,7 +3,10 @@ const weatherContainer = document.getElementById("weatherContainer");
 const cityInput = document.getElementById("cityInput");
 const addCityButton = document.getElementById("addCity");
 
-let cities = JSON.parse(localStorage.getItem("cities")) || [];
+// let cities = JSON.parse(localStorage.getItem("cities")) || [];
+// cities = [...new Set(cities)].filter(i => i.length != 0);
+
+let cities = [];
 
 const fetchWeather = async (city) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -13,37 +16,35 @@ const fetchWeather = async (city) => {
 };
 
 const displayWeather = (data) => {
-    const weatherCard = document.createElement("div");
-    weatherCard.classList.add("weatherCard");
-    const iconUrl = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`;
-
-    weatherCard.innerHTML = `
-        <h2>${data.name}</h2>
-        <img src="${iconUrl}" alt="Pogoda">
-        <p>Temperatura: ${data.main.temp}°C</p>
-        <p>Wilgotność: ${data.main.humidity}%</p>
-        <!-- Tutaj możesz dodać więcej informacji o pogodzie -->
-    `;
-    weatherContainer.appendChild(weatherCard);
+  const weatherCard = document.createElement("div");
+  weatherCard.classList.add("weatherCard");
+  const iconUrl = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`;
+ 
+  weatherCard.innerHTML = `
+      <h2>${data.name}</h2>
+      <img src="${iconUrl}" alt="Pogoda">
+      <p>Temperatura: ${data.main.temp}°C</p>
+      <p>Wilgotność: ${data.main.humidity}%</p>
+      <!-- Tutaj możesz dodać więcej informacji o pogodzie -->
+  `;
+  weatherContainer.appendChild(weatherCard);
 };
 
 const updateWeather = async () => {
-    weatherContainer.innerHTML = "";
-    for (const city of cities) {
-        const weatherData = await fetchWeather(city);
-        displayWeather(weatherData);
-    }
-};
-
-addCityButton.addEventListener("click", async () => {
-    const city = cityInput.value;
-    cities.push(city);
-    localStorage.setItem("cities", JSON.stringify(cities));
-    cityInput.value = "";
-
-    // Fetch and display weather data for the new city immediately
+  weatherContainer.innerHTML = "";
+  console.log(cities);
+  for (const city of cities) {
     const weatherData = await fetchWeather(city);
     displayWeather(weatherData);
+  }
+};
+
+addCityButton.addEventListener("click", () => {
+  const city = cityInput.value;
+  cities.push(city); 
+  // localStorage.setItem("cities", JSON.stringify(cities));
+  cityInput.value = "";
+  updateWeather();
 });
 
 // Inicjalizacja
